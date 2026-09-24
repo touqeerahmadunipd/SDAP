@@ -114,5 +114,7 @@ transformSCI_bat <- function(x, first.mon, obj, scaling=c("no","max","sd")) {
     theta <- pars[1:6,mm]; nu <- pars[7,mm]
     x[idx] <- tryCatch(pbat(x[idx], theta, nu), error=function(e) rep(NA,length(idx)))
   }
-  qnorm(x)
+    x<- qnorm(x)
+  x[x > 3] <- 3
+  x[x < -3] <- -3 #This condition is used under stages(2015) observation about larger values that are hard to interpret. 
 }
